@@ -1,4 +1,4 @@
-# Stage 0, based on Node.js, to build and compile Angular
+#Stage 0, based on Node.js
 FROM node:10-alpine as node
 
 WORKDIR /app
@@ -13,8 +13,8 @@ ARG TARGET=ng-deploy
 
 RUN npm run ${TARGET}
 
-#Stage 1, based on Nginx, to have only the compiled app, ready for production with Nginx
-FROM nginx:1.13 
+#STAGE 1 , based on Nginx
+FROM nginx:1.13
 
 COPY --from=node /app/dist/ /usr/share/nginx/html
 

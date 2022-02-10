@@ -10,6 +10,7 @@ jobs:
       -
         name: Checkout
         uses: actions/checkout@v2
+      
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -24,7 +25,7 @@ jobs:
           password: ${{ secrets.DOCKER_HUB_TOKEN }}
       -
         name: prepare the docker-compose run
-        run:
+        run: |
               ls -l
       -
         name: Build and push
@@ -32,13 +33,13 @@ jobs:
         with:
           context: .
           push: true
-          tags: whatsuplinlin/234-deploylab-frontend:latest
+          tags: koonlookhin190/234-deploylab-frontend:latest
       -
         name: prepare the docker-compose run
-        run: 
+        run: |
               mkdir 234-deploylab-frontend
               cp docker-compose.yml 234-deploylab-frontend/docker-compose.yml
               cd 234-deploylab-frontend
-              docker-compose --H ${{ secrets.HOST_SERVER }} down
-              docker-compose --H ${{ secrets.HOST_SERVER }} pull
-              docker-compose --H ${{ secrets.HOST_SERVER }} up -d
+              docker-compose -H ${{ secrets.HOST_SERVER }} down
+              docker-compose -H ${{ secrets.HOST_SERVER }} pull
+              docker-compose -H ${{ secrets.HOST_SERVER }} up -d
